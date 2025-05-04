@@ -1,1 +1,173 @@
-# adota-facil
+# Plataforma White-Label para ONGs de Animais
+
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
+![License](https://img.shields.io/badge/license-GPLv3-blue)
+![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-orange)
+
+---
+
+## Sumário
+
+- [Visão Geral](#visão-geral)
+- [Funcionalidades do MVP](#funcionalidades-do-mvp)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Como Funciona](#como-funciona)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Instalação e Uso](#instalação-e-uso)
+- [Contribuindo](#contribuindo)
+- [Roadmap](#roadmap)
+- [Licença](#licença)
+- [Contato](#contato)
+- [Créditos e Reconhecimentos](#créditos-e-reconhecimentos)
+- [Screenshots](#screenshots)
+- [FAQ](#faq)
+
+---
+
+## Visão Geral
+
+Este projeto oferece uma solução gratuita e personalizável para ONGs de cuidado e adoção de animais, permitindo que cada ONG tenha seu próprio site gerenciável, com cadastro de animais, eventos e páginas institucionais.
+
+---
+
+## Funcionalidades do MVP
+
+- Cadastro e aprovação de ONGs
+- Personalização visual (logo, cores, nome)
+- Cadastro e listagem de animais para adoção
+- Cadastro e listagem de eventos
+- Edição de páginas institucionais (Sobre, Contato)
+- Painel administrativo para cada ONG
+- Site público individualizado para cada ONG
+
+---
+
+## Tecnologias Utilizadas
+
+- **Frontend:** Next.js
+- **Backend/API:** NestJS
+- **Banco de Dados:** Supabase (PostgreSQL)
+- **Armazenamento de Imagens:** Supabase Storage
+- **CMS:** Strapi
+- **Hospedagem:** Vercel (frontend), Railway ou Render (backend/CMS)
+
+---
+
+## Como Funciona
+
+1. ONG solicita cadastro via contato.
+2. Admin aprova o cadastro e gera ambiente exclusivo.
+3. ONG recebe acesso ao painel administrativo.
+4. ONG cadastra animais, eventos e personaliza seu site.
+5. Visitantes acessam o site público da ONG para ver animais, eventos e informações.
+
+---
+
+## Estrutura do Projeto
+
+/frontend # Next.js (site público e painel admin ONG)
+/backend # NestJS (API multi-tenant)
+/cms # Strapi (gestão de conteúdo)
+/docs # Documentação e wireframes
+
+---
+
+## Instalação e Uso
+
+1. **Clone o repositório:**
+git clone https://github.com/seu-usuario/seu-repo.git
+
+2. **Configure as variáveis de ambiente:**  
+Copie `.env.example` para `.env` em cada pasta e preencha com suas credenciais.
+
+3. **Instale as dependências:**
+cd frontend && npm install
+cd ../backend && npm install
+cd ../cms && npm install
+
+4. **Inicie os serviços:**
+Em terminais separados
+cd frontend && npm run dev
+cd backend && npm run start:dev
+cd cms && npm run develop
+
+
+---
+
+## Contribuindo
+
+Contribuições são bem-vindas!
+
+Para contribuir, por favor:
+
+- Faça um fork do projeto
+- Crie uma branch para sua feature/correção (`git checkout -b minha-feature`)
+- Faça commit das suas alterações (`git commit -am 'Adiciona nova feature'`)
+- Faça push para a branch (`git push origin minha-feature`)
+- Abra um Pull Request
+
+Confira o arquivo [CONTRIBUTING.md](docs/CONTRIBUTING.md) para mais detalhes.
+
+---
+
+## Roadmap
+
+- [x] Cadastro e aprovação de ONGs
+- [x] Personalização visual
+- [x] Cadastro de animais e eventos
+- [x] Edição de páginas institucionais
+- [ ] Cadastro de voluntários
+- [ ] Integração com redes sociais
+- [ ] Doações online
+- [ ] Analytics e relatórios
+
+---
+
+## Licença
+
+Este projeto utiliza o modelo de licenciamento duplo:
+
+- **Para ONGs:** Licença GPLv3 (open source).
+- **Para empresas/petshops:** Licença comercial.  
+Entre em contato para adquirir uma licença comercial.
+
+Veja o arquivo [LICENSE](LICENSE) para detalhes.
+
+---
+
+## Contato
+
+Dúvidas, sugestões ou interesse em parceria/comercialização?  
+Entre em contato: [jpcosta.araujo@outlook.com](mailto:jpcosta.araujo@outlook.com)
+
+---
+
+## Créditos e Reconhecimentos
+
+- [Supabase](https://supabase.com/)
+- [Vercel](https://vercel.com/)
+- [Strapi](https://strapi.io/)
+- [Railway](https://railway.app/)
+- [Next.js](https://nextjs.org/)
+- [NestJS](https://nestjs.com/)
+
+---
+
+## Screenshots
+
+>
+
+---
+
+## FAQ
+
+**Como cadastrar minha ONG?**  
+Basta preencher o formulário de contato e aguardar aprovação.
+
+**Preciso pagar para usar?**  
+Não! O uso é gratuito para ONGs.
+
+**Posso usar para meu petshop?**  
+Sim, mas é necessário adquirir uma licença comercial. Entre em contato para mais informações.
+
+---
