@@ -112,41 +112,43 @@ Confira o arquivo [CONTRIBUTING.md](docs/CONTRIBUTING.md) para mais detalhes.
 
 ## Roadmap do Projeto
 
+## Roadmap do Projeto
+
 ### Fase 1: Estruturação e Setup Inicial (2 a 4 semanas)
-✅ Definir arquitetura do monorepo
-✅ Criar estrutura de pastas
-✅ Inicializar repositório Git na raiz
-- [ ] Configurar Yarn Workspaces
-- [ ] Adicionar e configurar ESLint, Prettier
-- [ ] Instalar bibliotecas essenciais
+- [x] ~~Definir arquitetura do monorepo~~
+- [x] ~~Criar estrutura de pastas (frontend, backend, strapi-template, scripts, docs)~~
+- [x] ~~Inicializar repositório Git na raiz~~
+- [ ] Configurar Yarn Workspaces (ou outro gerenciador de monorepo, se desejar)
+- [ ] Adicionar e configurar ESLint, Prettier e outras ferramentas de padronização
+- [ ] Instalar bibliotecas essenciais em cada subprojeto
 
 ### Fase 2: Configuração dos Ambientes e Templates (3 a 5 semanas)
-- [ ] Criar template base do Strapi
-- [ ] Configurar Next.js multi-tenant
-- [ ] Criar scripts de automação
-- [ ] Configurar variáveis de ambiente
+- [ ] Criar template base do Strapi para instanciar ambientes das ONGs
+- [ ] Configurar Next.js (frontend) com estrutura multi-tenant
+- [ ] Criar scripts de automação para instanciar novos ambientes Strapi
+- [ ] Configurar variáveis de ambiente e arquivos `.env` para cada serviço
 
 ### Fase 3: Desenvolvimento do MVP (6 a 10 semanas)
-- [ ] Implementar layout básico do frontend
-- [ ] Integrar frontend <-> Strapi
-- [ ] Implementar personalização visual
-- [ ] Criar endpoints e lógica no backend
-- [ ] Testar fluxo multi-tenant
-- [ ] Documentar endpoints e scripts
+- [ ] Implementar layout básico do frontend (páginas públicas e painel admin ONG)
+- [ ] Implementar integração frontend <-> Strapi para CRUD de animais, eventos e páginas institucionais
+- [ ] Implementar personalização visual (logo, cores, nome da ONG)
+- [ ] Criar endpoints e lógica no backend para automação/orquestração (ex: criação de instância Strapi)
+- [ ] Testar fluxo multi-tenant (cada ONG com seu ambiente isolado)
+- [ ] Documentar endpoints, scripts e processos internos
 
 ### Fase 4: Testes, Ajustes e Deploy Inicial (2 a 4 semanas)
-- [ ] Testar fluxo completo de uso
-- [ ] Corrigir bugs e ajustar UX/UI
-- [ ] Preparar ambiente de deploy
-- [ ] Realizar deploy inicial
-- [ ] Documentar processo de deploy
+- [ ] Testar fluxo completo de uso (admin, ONG, visitante)
+- [ ] Corrigir bugs e ajustar UX/UI conforme necessário
+- [ ] Preparar ambiente de deploy (Vercel, Railway, Supabase, etc.)
+- [ ] Realizar deploy inicial dos serviços
+- [ ] Documentar processo de deploy e onboarding de novas ONGs
 
 ### Fase 5: Pós-MVP e Melhorias Futuras (contínuo)
-- [ ] Adicionar autenticação avançada
-- [ ] Implementar notificações
-- [ ] Criar painel de métricas
+- [ ] Adicionar autenticação avançada (login social, permissões)
+- [ ] Implementar notificações (e-mail, alertas)
+- [ ] Criar painel de métricas e analytics
 - [ ] Adicionar sistema de voluntários
-- [ ] Planejar integração com petshops
+- [ ] Integração com petshops para venda/distribuição ❓ (a definir)
 
 ---
 
