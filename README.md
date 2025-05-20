@@ -110,16 +110,62 @@ Confira o arquivo [CONTRIBUTING.md](docs/CONTRIBUTING.md) para mais detalhes.
 
 ---
 
-## Roadmap
+## Roadmap do Projeto
 
-- [x] Cadastro e aprovação de ONGs
-- [x] Personalização visual
-- [x] Cadastro de animais e eventos
-- [x] Edição de páginas institucionais
-- [ ] Cadastro de voluntários
-- [ ] Integração com redes sociais
-- [ ] Doações online
-- [ ] Analytics e relatórios
+### Fase 1: Estruturação e Setup Inicial (2 a 4 semanas)
+- [x] Definir arquitetura do monorepo
+- [x] Criar estrutura de pastas
+- [x] Inicializar repositório Git na raiz
+- [ ] Configurar Yarn Workspaces
+- [ ] Adicionar e configurar ESLint, Prettier
+- [ ] Instalar bibliotecas essenciais
+
+### Fase 2: Configuração dos Ambientes e Templates (3 a 5 semanas)
+- [ ] Criar template base do Strapi
+- [ ] Configurar Next.js multi-tenant
+- [ ] Criar scripts de automação
+- [ ] Configurar variáveis de ambiente
+
+### Fase 3: Desenvolvimento do MVP (6 a 10 semanas)
+- [ ] Implementar layout básico do frontend
+- [ ] Integrar frontend <-> Strapi
+- [ ] Implementar personalização visual
+- [ ] Criar endpoints e lógica no backend
+- [ ] Testar fluxo multi-tenant
+- [ ] Documentar endpoints e scripts
+
+### Fase 4: Testes, Ajustes e Deploy Inicial (2 a 4 semanas)
+- [ ] Testar fluxo completo de uso
+- [ ] Corrigir bugs e ajustar UX/UI
+- [ ] Preparar ambiente de deploy
+- [ ] Realizar deploy inicial
+- [ ] Documentar processo de deploy
+
+### Fase 5: Pós-MVP e Melhorias Futuras (contínuo)
+- [ ] Adicionar autenticação avançada
+- [ ] Implementar notificações
+- [ ] Criar painel de métricas
+- [ ] Adicionar sistema de voluntários
+- [ ] Planejar integração com petshops
+
+---
+
+### Resumo Visual
+
+| Etapa                              | Duração Estimada   | Status Inicial         |
+|-------------------------------------|--------------------|-----------------------|
+| Estruturação e Setup                | 2-4 semanas        | 🚧 Em andamento       |
+| Configuração de Ambientes/Templates | 3-5 semanas        | ⏳ Próxima etapa      |
+| Desenvolvimento do MVP              | 6-10 semanas       | ⏳ Planejado          |
+| Testes e Deploy Inicial             | 2-4 semanas        | ⏳ Planejado          |
+| Pós-MVP/Melhorias                   | Contínuo           | ⏳ Planejado          |
+
+---
+
+#### Observações
+- Os prazos são estimativas para dedicação parcial (apenas algumas horas por semana).
+- O cadastro de ONGs e onboarding de parceiros só será aberto após o MVP estar estável.
+- O roadmap pode ser ajustado conforme disponibilidade e prioridades.
 
 ---
 
