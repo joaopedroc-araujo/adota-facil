@@ -5,8 +5,9 @@
 ![Commercial License](https://img.shields.io/badge/license-commercial-important)
 ![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-orange)
 
-> **Licenciamento:**  
+> **Licencça:**  
 > Este projeto adota modelo de licenciamento duplo:  
+
 > - GPLv3 para ONGs e uso open source  
 > - Licença comercial para uso empresarial/petshops  
 > Veja o arquivo [LICENSE](LICENSE) para detalhes.
@@ -23,7 +24,7 @@
 - [Instalação e Uso](#instalação-e-uso)
 - [Contribuindo](#contribuindo)
 - [Roadmap](#roadmap)
-- [Licença](#licença)
+<!-- - [Licença](#licença) -->
 - [Contato](#contato)
 - [Créditos e Reconhecimentos](#créditos-e-reconhecimentos)
 - [Screenshots](#screenshots)
@@ -117,25 +118,26 @@ Confira o arquivo [CONTRIBUTING.md](docs/CONTRIBUTING.md) para mais detalhes.
 
 ---
 
-## Roadmap do Projeto
+## Roadmap
 
-## Roadmap do Projeto
+### ~~Fase 1: Estruturação e Setup Inicial (2 a 4 semanas)~~
 
-### Fase 1: Estruturação e Setup Inicial (2 a 4 semanas)
 - [x] ~~Definir arquitetura do monorepo~~
 - [x] ~~Criar estrutura de pastas (frontend, backend, strapi-template, scripts, docs)~~
 - [x] ~~Inicializar repositório Git na raiz~~
 - [x] ~~Configurar Yarn Workspaces~~
 - [x] ~~Adicionar e configurar ESLint, Prettier e outras ferramentas de padronização~~
-- [ ] Instalar bibliotecas essenciais em cada subprojeto
+- [x] ~~Instalar bibliotecas essenciais em cada subprojeto~~
 
 ### Fase 2: Configuração dos Ambientes e Templates (3 a 5 semanas)
+
 - [ ] Criar template base do Strapi para instanciar ambientes das ONGs
 - [ ] Configurar Next.js (frontend) com estrutura multi-tenant
 - [ ] Criar scripts de automação para instanciar novos ambientes Strapi
 - [ ] Configurar variáveis de ambiente e arquivos `.env` para cada serviço
 
 ### Fase 3: Desenvolvimento do MVP (6 a 10 semanas)
+
 - [ ] Implementar layout básico do frontend (páginas públicas e painel admin ONG)
 - [ ] Implementar integração frontend <-> Strapi para CRUD de animais, eventos e páginas institucionais
 - [ ] Implementar personalização visual (logo, cores, nome da ONG)
@@ -144,6 +146,7 @@ Confira o arquivo [CONTRIBUTING.md](docs/CONTRIBUTING.md) para mais detalhes.
 - [ ] Documentar endpoints, scripts e processos internos
 
 ### Fase 4: Testes, Ajustes e Deploy Inicial (2 a 4 semanas)
+
 - [ ] Testar fluxo completo de uso (admin, ONG, visitante)
 - [ ] Corrigir bugs e ajustar UX/UI conforme necessário
 - [ ] Preparar ambiente de deploy (Vercel, Railway, Supabase, etc.)
@@ -151,6 +154,7 @@ Confira o arquivo [CONTRIBUTING.md](docs/CONTRIBUTING.md) para mais detalhes.
 - [ ] Documentar processo de deploy e onboarding de novas ONGs
 
 ### Fase 5: Pós-MVP e Melhorias Futuras (contínuo)
+
 - [ ] Adicionar autenticação avançada (login social, permissões)
 - [ ] Implementar notificações (e-mail, alertas)
 - [ ] Criar painel de métricas e analytics
@@ -172,6 +176,7 @@ Confira o arquivo [CONTRIBUTING.md](docs/CONTRIBUTING.md) para mais detalhes.
 ---
 
 #### Observações
+
 - Os prazos são estimativas para dedicação parcial (apenas algumas horas por semana).
 - O cadastro de ONGs e onboarding de parceiros só será aberto após o MVP estar estável.
 - O roadmap pode ser ajustado conforme disponibilidade e prioridades.
