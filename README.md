@@ -83,7 +83,7 @@ Este projeto oferece uma solução gratuita e personalizável para ONGs de cuida
 ## Instalação e Uso
 
 1. **Clone o repositório:**
-git clone https://github.com/seu-usuario/seu-repo.git
+git clone <https://github.com/joaopedroc-araujo/adota-facil.git>
 
 2. **Configure as variáveis de ambiente:**  
 Copie `.env.example` para `.env` em cada pasta e preencha com suas credenciais.
@@ -186,7 +186,7 @@ Confira o arquivo [CONTRIBUTING.md](docs/CONTRIBUTING.md) para mais detalhes.
 ## Contato
 
 Dúvidas, sugestões ou interesse em parceria/comercialização?  
-Entre em contato: [jpcosta.araujo@outlook.com](mailto:jpcosta.araujo@outlook.com)
+Entre em contato: [costaaraujojoaopedro@gmail.com](mailto:costaaraujojoaopedro@gmail.com)
 
 ---
 
