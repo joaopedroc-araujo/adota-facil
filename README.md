@@ -113,9 +113,9 @@ Confira o arquivo [CONTRIBUTING.md](docs/CONTRIBUTING.md) para mais detalhes.
 ## Roadmap do Projeto
 
 ### Fase 1: Estruturação e Setup Inicial (2 a 4 semanas)
-- [x] Definir arquitetura do monorepo
-- [x] Criar estrutura de pastas
-- [x] Inicializar repositório Git na raiz
+- ✅ Definir arquitetura do monorepo
+- ✅ Criar estrutura de pastas
+- ✅ Inicializar repositório Git na raiz
 - [ ] Configurar Yarn Workspaces
 - [ ] Adicionar e configurar ESLint, Prettier
 - [ ] Instalar bibliotecas essenciais
