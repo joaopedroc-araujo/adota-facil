@@ -5,6 +5,12 @@
 ![Commercial License](https://img.shields.io/badge/license-commercial-important)
 ![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-orange)
 
+> **Licenciamento:**  
+> Este projeto adota modelo de licenciamento duplo:  
+> - GPLv3 para ONGs e uso open source  
+> - Licença comercial para uso empresarial/petshops  
+> Veja o arquivo [LICENSE](LICENSE) para detalhes.
+
 ---
 
 ## Sumário
@@ -169,18 +175,6 @@ Confira o arquivo [CONTRIBUTING.md](docs/CONTRIBUTING.md) para mais detalhes.
 - Os prazos são estimativas para dedicação parcial (apenas algumas horas por semana).
 - O cadastro de ONGs e onboarding de parceiros só será aberto após o MVP estar estável.
 - O roadmap pode ser ajustado conforme disponibilidade e prioridades.
-
----
-
-## Licença
-
-Este projeto utiliza o modelo de licenciamento duplo:
-
-- **Para ONGs:** Licença GPLv3 (open source).
-- **Para empresas/petshops:** Licença comercial.  
-Entre em contato para adquirir uma licença comercial.
-
-Veja o arquivo [LICENSE](LICENSE) para detalhes.
 
 ---
 
