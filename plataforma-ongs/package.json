@@ -1,0 +1,12 @@
+{
+  "name": "plataforma-ongs",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "strapi-template",
+    "scripts"
+  ],
+  "version": "1.0.0",
+  "license": "GPL-3.0"
+}

@@ -125,7 +125,7 @@ Confira o arquivo [CONTRIBUTING.md](docs/CONTRIBUTING.md) para mais detalhes.
 - [x] ~~Definir arquitetura do monorepo~~
 - [x] ~~Criar estrutura de pastas (frontend, backend, strapi-template, scripts, docs)~~
 - [x] ~~Inicializar repositório Git na raiz~~
-- [ ] Configurar Yarn Workspaces (ou outro gerenciador de monorepo, se desejar)
+- [x] ~~Configurar Yarn Workspaces~~
 - [ ] Adicionar e configurar ESLint, Prettier e outras ferramentas de padronização
 - [ ] Instalar bibliotecas essenciais em cada subprojeto
 
