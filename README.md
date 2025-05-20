@@ -126,7 +126,7 @@ Confira o arquivo [CONTRIBUTING.md](docs/CONTRIBUTING.md) para mais detalhes.
 - [x] ~~Criar estrutura de pastas (frontend, backend, strapi-template, scripts, docs)~~
 - [x] ~~Inicializar repositório Git na raiz~~
 - [x] ~~Configurar Yarn Workspaces~~
-- [ ] Adicionar e configurar ESLint, Prettier e outras ferramentas de padronização
+- [x] ~~Adicionar e configurar ESLint, Prettier e outras ferramentas de padronização~~
 - [ ] Instalar bibliotecas essenciais em cada subprojeto
 
 ### Fase 2: Configuração dos Ambientes e Templates (3 a 5 semanas)
