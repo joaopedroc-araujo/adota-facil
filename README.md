@@ -1,7 +1,8 @@
 # Plataforma White-Label para ONGs de Animais
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![License](https://img.shields.io/badge/license-GPLv3-blue)
+![License: GPLv3](https://img.shields.io/badge/license-GPLv3-blue)
+![Commercial License](https://img.shields.io/badge/license-commercial-important)
 ![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-orange)
 
 ---
