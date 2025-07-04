@@ -4,7 +4,7 @@
   "workspaces": [
     "frontend",
     "backend",
-    "strapi-template",
+    "adote-facil",
     "scripts",
     "configs/*"
   ],
