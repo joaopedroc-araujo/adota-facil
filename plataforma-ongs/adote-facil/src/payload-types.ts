@@ -69,6 +69,10 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    tenants: Tenant;
+    animais: Animai;
+    eventos: Evento;
+    paginas: Pagina;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -77,12 +81,16 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    tenants: TenantsSelect<false> | TenantsSelect<true>;
+    animais: AnimaisSelect<false> | AnimaisSelect<true>;
+    eventos: EventosSelect<false> | EventosSelect<true>;
+    paginas: PaginasSelect<false> | PaginasSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: string;
+    defaultIDType: number;
   };
   globals: {};
   globalsSelect: {};
@@ -118,7 +126,17 @@ export interface UserAuthOperations {
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
+  id: number;
+  tenant?: (number | null) | Tenant;
+  firstName: string;
+  lastName: string;
+  role: 'admin' | 'editor' | 'viewer';
+  tenants?:
+    | {
+        tenant: number | Tenant;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -139,11 +157,37 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tenants".
+ */
+export interface Tenant {
+  id: number;
+  name: string;
+  slug: string;
+  domain?: string | null;
+  logo?: (number | null) | Media;
+  primaryColor?: string | null;
+  secondaryColor?: string | null;
+  fontFamily?: string | null;
+  contactEmail?: string | null;
+  phone?: string | null;
+  address?: string | null;
+  features?:
+    | {
+        feature?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
-  id: string;
-  alt: string;
+  id: number;
+  tenant?: (number | null) | Tenant;
+  description?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -158,23 +202,127 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "animais".
+ */
+export interface Animai {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  name: string;
+  species: 'Cachorro' | 'Gato' | 'Outro';
+  breed?: string | null;
+  age?: number | null;
+  gender?: ('Macho' | 'Fêmea') | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  photos?: (number | Media)[] | null;
+  status?: ('Disponível' | 'Adotado' | 'Reservado') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "eventos".
+ */
+export interface Evento {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  title: string;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  date: string;
+  location?: string | null;
+  banner?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "paginas".
+ */
+export interface Pagina {
+  id: number;
+  tenant?: (number | null) | Tenant;
+  title: string;
+  slug: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string;
+  id: number;
   document?:
     | ({
         relationTo: 'users';
-        value: string | User;
+        value: number | User;
       } | null)
     | ({
         relationTo: 'media';
-        value: string | Media;
+        value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'tenants';
+        value: number | Tenant;
+      } | null)
+    | ({
+        relationTo: 'animais';
+        value: number | Animai;
+      } | null)
+    | ({
+        relationTo: 'eventos';
+        value: number | Evento;
+      } | null)
+    | ({
+        relationTo: 'paginas';
+        value: number | Pagina;
       } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   updatedAt: string;
   createdAt: string;
@@ -184,10 +332,10 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: number;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   key?: string | null;
   value?:
@@ -207,7 +355,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
+  id: number;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -218,6 +366,16 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  tenant?: T;
+  firstName?: T;
+  lastName?: T;
+  role?: T;
+  tenants?:
+    | T
+    | {
+        tenant?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -240,7 +398,8 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
+  tenant?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -252,6 +411,73 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tenants_select".
+ */
+export interface TenantsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  domain?: T;
+  logo?: T;
+  primaryColor?: T;
+  secondaryColor?: T;
+  fontFamily?: T;
+  contactEmail?: T;
+  phone?: T;
+  address?: T;
+  features?:
+    | T
+    | {
+        feature?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "animais_select".
+ */
+export interface AnimaisSelect<T extends boolean = true> {
+  tenant?: T;
+  name?: T;
+  species?: T;
+  breed?: T;
+  age?: T;
+  gender?: T;
+  description?: T;
+  photos?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "eventos_select".
+ */
+export interface EventosSelect<T extends boolean = true> {
+  tenant?: T;
+  title?: T;
+  description?: T;
+  date?: T;
+  location?: T;
+  banner?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "paginas_select".
+ */
+export interface PaginasSelect<T extends boolean = true> {
+  tenant?: T;
+  title?: T;
+  slug?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

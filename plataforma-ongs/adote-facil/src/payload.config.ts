@@ -7,8 +7,13 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
+import { multiTenantPlugin } from '@payloadcms/plugin-multi-tenant'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Tenants } from './collections/Tenants'
+import { Animais } from './collections/Animais'
+import { Eventos } from './collections/Eventos'
+import { Paginas } from './collections/Paginas'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -20,7 +25,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Tenants, Animais, Eventos, Paginas],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -34,6 +39,15 @@ export default buildConfig({
   sharp,
   plugins: [
     payloadCloudPlugin(),
+    multiTenantPlugin({
+      collections: {
+        users: {},
+        animais: {},
+        eventos: {},
+        paginas: {},
+        media: {},
+      },
+    }),
     // storage-adapter-placeholder
   ],
 })
