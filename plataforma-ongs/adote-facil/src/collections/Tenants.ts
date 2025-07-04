@@ -5,7 +5,7 @@ export const Tenants: CollectionConfig = {
   admin: { useAsTitle: 'name' },
   fields: [
     { name: 'name', type: 'text', required: true, label: 'Nome da ONG' },
-    { name: 'slug', type: 'text', required: true, unique: true, label: 'Slug' },
+    { name: 'slug', type: 'text', required: true, unique: true, _sanitized: true, label: 'Slug' },
     { name: 'domain', type: 'text', label: 'Domínio/Subdomínio' },
     { name: 'logo', type: 'upload', relationTo: 'media', label: 'Logo' },
     { name: 'primaryColor', type: 'text', label: 'Cor Primária' },
@@ -21,4 +21,11 @@ export const Tenants: CollectionConfig = {
       label: 'Recursos habilitados',
     },
   ],
+  access: {
+    read: ({ req: { user } }) => user?.role === 'super-admin',
+    create: ({ req: { user } }) => user?.role === 'super-admin',
+    update: ({ req: { user } }) => user?.role === 'super-admin',
+    delete: ({ req: { user } }) => user?.role === 'super-admin',
+    admin: ({ req: { user } }) => user?.role === 'super-admin',
+  },
 }

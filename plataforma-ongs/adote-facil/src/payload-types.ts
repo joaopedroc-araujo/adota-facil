@@ -130,7 +130,7 @@ export interface User {
   tenant?: (number | null) | Tenant;
   firstName: string;
   lastName: string;
-  role: 'admin' | 'editor' | 'viewer';
+  role: 'super-admin' | 'admin-ong' | 'voluntario';
   tenants?:
     | {
         tenant: number | Tenant;

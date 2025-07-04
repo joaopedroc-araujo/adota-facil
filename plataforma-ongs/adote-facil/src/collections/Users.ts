@@ -10,10 +10,27 @@ export const Users: CollectionConfig = {
     {
       name: 'role',
       type: 'select',
-      options: ['admin', 'editor', 'viewer'],
-      defaultValue: 'editor',
+      options: [
+        { label: 'Super Admin', value: 'super-admin' },
+        { label: 'Admin ONG', value: 'admin-ong' },
+        { label: 'Voluntário', value: 'voluntario' },
+      ],
+      defaultValue: 'voluntario',
       required: true,
       label: 'Papel',
     },
   ],
+  access: {
+    read: ({ req: { user } }) =>
+      user?.role === 'super-admin' ||
+      user?.role === 'admin-ong' ||
+      (user?.role === 'voluntario' && { id: { equals: user.id } }),
+    create: ({ req: { user } }) => user?.role === 'super-admin' || user?.role === 'admin-ong',
+    update: ({ req: { user }, id }) =>
+      user?.role === 'super-admin' ||
+      user?.role === 'admin-ong' ||
+      (user?.role === 'voluntario' && user.id === id),
+    delete: ({ req: { user } }) => user?.role === 'super-admin' || user?.role === 'admin-ong',
+    admin: ({ req: { user } }) => user?.role === 'super-admin' || user?.role === 'admin-ong',
+  },
 }
