@@ -45,7 +45,19 @@ export default buildConfig({
         paginas: {},
         media: {},
       },
+      tenantField: {
+        name: 'tenant',
+        access: {
+          read: () => true,
+          create: ({ req: { user } }) => user?.role === 'super-admin',
+          update: ({ req: { user } }) => user?.role === 'super-admin',
+        },
+      },
+      tenantsArrayField: {
+        includeDefaultField: false,
+      },
       userHasAccessToAllTenants: (user) => user?.role === 'super-admin',
+      debug: true,
     }),
     // storage-adapter-placeholder
   ],

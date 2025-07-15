@@ -1,3 +1,4 @@
+import { tenantsArrayField } from '@payloadcms/plugin-multi-tenant/fields'
 import type { CollectionConfig } from 'payload'
 
 export const Users: CollectionConfig = {
@@ -19,6 +20,7 @@ export const Users: CollectionConfig = {
       required: true,
       label: 'Papel',
     },
+    tenantsArrayField({}),
   ],
   access: {
     read: ({ req: { user } }) =>
