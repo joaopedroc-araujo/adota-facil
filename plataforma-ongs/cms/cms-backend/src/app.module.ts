@@ -9,6 +9,7 @@ import { UsersModule } from './users/users.module';
 import { AnimalsModule } from './animals/animals.module';
 import { AuthModule } from './auth/auth.module';
 import { UserTenantModule } from './user-tenant/user-tenant.module';
+import { TenantFeatureModule } from './tenant-feature/tenant-feature.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { UserTenantModule } from './user-tenant/user-tenant.module';
     AnimalsModule,
     AuthModule,
     UserTenantModule,
+    TenantFeatureModule,
   ],
   controllers: [AppController],
   providers: [AppService],

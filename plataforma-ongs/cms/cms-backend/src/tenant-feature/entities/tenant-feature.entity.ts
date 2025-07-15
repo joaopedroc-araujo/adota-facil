@@ -1,11 +1,9 @@
 import { Tenant } from 'src/tenants/entities/tenant.entity';
 
-export class Animal {
+export class TenantFeature {
   id: string;
   tenantId: string;
-  name: string;
-  description: string;
-  foto: string;
-  createdAt: Date;
+  feature: string;
+  enabled: boolean;
   tenant?: Tenant;
 }
