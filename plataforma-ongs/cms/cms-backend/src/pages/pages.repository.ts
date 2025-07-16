@@ -3,25 +3,67 @@ import { Page } from 'generated/prisma';
 import { IPageRepository } from 'src/interface/IPageRepository.interface';
 import { CreatePageDto } from './dto/create-page.dto';
 import { UpdatePageDto } from './dto/update-page.dto';
+import { PrismaService } from 'src/database/prisma.service';
 
 @Injectable()
 export class PagesRepository implements IPageRepository {
-  create(data: CreatePageDto, tenantId: string): Promise<Page> {
-    throw new Error('Method not implemented.');
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(data: CreatePageDto, tenantId: string): Promise<Page> {
+    return await this.prisma.page.create({
+      data: {
+        ...data,
+        tenantId: tenantId,
+      },
+    });
   }
-  findAllByTenant(tenantId: string): Promise<Page[]> {
-    throw new Error('Method not implemented.');
+
+  async findAllByTenant(tenantId: string): Promise<Page[]> {
+    return await this.prisma.page.findMany({
+      where: {
+        tenantId: tenantId,
+      },
+    });
   }
-  findById(id: string, tenantId: string): Promise<Page | null> {
-    throw new Error('Method not implemented.');
+
+  async findById(id: string, tenantId: string): Promise<Page | null> {
+    return await this.prisma.page.findUnique({
+      where: {
+        id: id,
+        tenantId: tenantId,
+      },
+    });
   }
-  findBySlug(slug: string, tenantId: string): Promise<Page | null> {
-    throw new Error('Method not implemented.');
+
+  async findBySlug(slug: string, tenantId: string): Promise<Page | null> {
+    return await this.prisma.page.findUnique({
+      where: {
+        slug: slug,
+        tenantId: tenantId,
+      },
+    });
   }
-  update(id: string, data: UpdatePageDto, tenantId: string): Promise<Page> {
-    throw new Error('Method not implemented.');
+
+  async update(
+    id: string,
+    data: UpdatePageDto,
+    tenantId: string,
+  ): Promise<Page> {
+    return await this.prisma.page.update({
+      where: {
+        id: id,
+        tenantId: tenantId,
+      },
+      data: data,
+    });
   }
-  delete(id: string, tenantId: string): Promise<void> {
-    throw new Error('Method not implemented.');
+
+  async delete(id: string, tenantId: string): Promise<void> {
+    return await this.prisma.page.delete({
+      where: {
+        id: id,
+        tenantId: tenantId,
+      },
+    });
   }
 }

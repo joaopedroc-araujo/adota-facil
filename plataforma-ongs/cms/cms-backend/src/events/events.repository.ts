@@ -2,22 +2,58 @@ import { Injectable } from '@nestjs/common';
 import { IEventRepository } from 'src/interface/IEventRepository.interface';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
+import { PrismaService } from 'src/database/prisma.service';
 
 @Injectable()
 export class EventsRepository implements IEventRepository {
-  create(data: CreateEventDto, tenantId: string): Promise<Event> {
-    throw new Error('Method not implemented.');
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(data: CreateEventDto, tenantId: string): Promise<Event> {
+    return await this.prisma.event.create({
+      data: {
+        ...data,
+        tenantId: tenantId,
+      },
+    });
   }
-  findAllByTenant(tenantId: string): Promise<Event[]> {
-    throw new Error('Method not implemented.');
+
+  async findAllByTenant(tenantId: string): Promise<Event[]> {
+    return await this.prisma.event.findMany({
+      where: {
+        tenantId: tenantId,
+      },
+    });
   }
-  findById(id: string, tenantId: string): Promise<Event | null> {
-    throw new Error('Method not implemented.');
+
+  async findById(id: string, tenantId: string): Promise<Event | null> {
+    return await this.prisma.event.findUnique({
+      where: {
+        id: id,
+        tenantId: tenantId,
+      },
+    });
   }
-  update(id: string, data: UpdateEventDto, tenantId: string): Promise<Event> {
-    throw new Error('Method not implemented.');
+
+  async update(
+    id: string,
+    data: UpdateEventDto,
+    tenantId: string,
+  ): Promise<Event> {
+    return await this.prisma.event.update({
+      where: {
+        id: id,
+        tenantId: tenantId,
+      },
+      data: data,
+    });
   }
-  delete(id: string, tenantId: string): Promise<void> {
-    throw new Error('Method not implemented.');
+
+  async delete(id: string, tenantId: string): Promise<void> {
+    return await this.prisma.event.delete({
+      where: {
+        id: id,
+        tenantId: tenantId,
+      },
+    });
   }
 }

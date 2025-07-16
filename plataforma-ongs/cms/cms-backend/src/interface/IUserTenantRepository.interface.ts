@@ -3,7 +3,7 @@ import { CreateUserTenantDto } from 'src/user-tenant/dto/create-user-tenant.dto'
 import { UpdateUserTenantDto } from 'src/user-tenant/dto/update-user-tenant.dto';
 
 export interface IUserTenantRepository {
-  create(data: CreateUserTenantDto): Promise<UserTenant>;
+  create(data: CreateUserTenantDto, tenantId: string): Promise<UserTenant>;
   findByUserAndTenant(
     userId: string,
     tenantId: string,
