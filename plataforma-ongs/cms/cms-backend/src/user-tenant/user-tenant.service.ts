@@ -1,26 +1,54 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserTenantDto } from './dto/create-user-tenant.dto';
 import { UpdateUserTenantDto } from './dto/update-user-tenant.dto';
+import { IUserTenantRepository } from 'src/interface/IUserTenantRepository.interface';
 
 @Injectable()
 export class UserTenantService {
-  create(createUserTenantDto: CreateUserTenantDto) {
-    return 'This action adds a new userTenant';
+  constructor(
+    @Inject('IUserTenantRepository')
+    private readonly userTenantRepository: IUserTenantRepository,
+  ) {}
+
+  async create(createUserTenantDto: CreateUserTenantDto, tenantId: string) {
+    const createdUserTenant = await this.userTenantRepository.create(
+      createUserTenantDto,
+      tenantId,
+    );
+
+    if (!createdUserTenant) throw new Error('Failed to create user tenant');
+
+    return createdUserTenant;
   }
 
-  findAll() {
-    return `This action returns all userTenant`;
+  async findByUserAndTenant(userId: string, tenantId: string) {
+    const userTenant = await this.userTenantRepository.findByUserAndTenant(
+      userId,
+      tenantId,
+    );
+
+    if (!userTenant) throw new Error('User tenant not found');
+
+    return userTenant;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} userTenant`;
+  async update(id: string, updateUserTenantDto: UpdateUserTenantDto) {
+    const updatedUserTenant = await this.userTenantRepository.updateRole(
+      id,
+      updateUserTenantDto,
+    );
+
+    if (!updatedUserTenant) throw new Error('Failed to update user tenant');
+
+    return updatedUserTenant;
   }
 
-  update(id: number, updateUserTenantDto: UpdateUserTenantDto) {
-    return `This action updates a #${id} userTenant`;
-  }
+  async delete(id: string) {
+    const deletedUserTenant = await this.userTenantRepository.delete(id);
 
-  remove(id: number) {
-    return `This action removes a #${id} userTenant`;
+    if (deletedUserTenant === null)
+      throw new Error('Failed to delete user tenant');
+
+    return deletedUserTenant;
   }
 }

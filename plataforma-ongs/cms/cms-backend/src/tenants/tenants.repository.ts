@@ -18,6 +18,10 @@ export class TenantsRepository implements ITenantRepository {
     });
   }
 
+  async findAll(): Promise<Tenant[]> {
+    return await this.prisma.tenant.findMany();
+  }
+
   async findById(id: string): Promise<Tenant | null> {
     return await this.prisma.tenant.findUnique({
       where: {
