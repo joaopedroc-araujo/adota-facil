@@ -16,8 +16,6 @@ export class TenantMiddleware implements NestMiddleware {
       return next();
     }
 
-    //TODO: create findBySubdomain method in tenantsService
-    // to fetch tenant by subdomain
     const tenant = await this.tenantsService.findBySubdomain(subdomain);
     if (!tenant) {
       throw new NotFoundException('Tenant not found');
