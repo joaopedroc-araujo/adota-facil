@@ -9,7 +9,7 @@ import { UserTenantRepository } from './user-tenant.repository';
     UserTenantService,
     {
       provide: 'IUserTenantRepository',
-      useClass: UserTenantRepository, // Assuming UserTenantRepository is implemented similarly to TenantsRepository
+      useClass: UserTenantRepository,
     },
   ],
 })

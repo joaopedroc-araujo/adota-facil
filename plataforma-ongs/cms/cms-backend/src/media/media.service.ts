@@ -1,26 +1,40 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateMediaDto } from './dto/create-media.dto';
 import { UpdateMediaDto } from './dto/update-media.dto';
+import { IMediaRepository } from 'src/interface/IMediaRepository.interface';
+import { Media } from './entities/media.entity';
 
 @Injectable()
 export class MediaService {
-  create(createMediaDto: CreateMediaDto) {
-    return 'This action adds a new media';
+  constructor(
+    @Inject('IMediaRepository')
+    private readonly mediaRepository: IMediaRepository,
+  ) {}
+
+  async create(
+    createMediaDto: CreateMediaDto,
+    tenantId: string,
+  ): Promise<Media> {
+    return this.mediaRepository.create(createMediaDto, tenantId);
   }
 
-  findAll() {
-    return `This action returns all media`;
+  async findAllByTenant(tenantId: string): Promise<Media[]> {
+    return this.mediaRepository.findAllByTenant(tenantId);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} media`;
+  async findById(id: string, tenantId: string): Promise<Media | null> {
+    return this.mediaRepository.findById(id, tenantId);
   }
 
-  update(id: number, updateMediaDto: UpdateMediaDto) {
-    return `This action updates a #${id} media`;
+  async update(
+    id: string,
+    updateMediaDto: UpdateMediaDto,
+    tenantId: string,
+  ): Promise<Media> {
+    return this.mediaRepository.update(id, updateMediaDto, tenantId);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} media`;
+  async delete(id: string, tenantId: string): Promise<void> {
+    return this.mediaRepository.delete(id, tenantId);
   }
 }

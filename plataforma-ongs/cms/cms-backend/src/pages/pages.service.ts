@@ -1,26 +1,41 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreatePageDto } from './dto/create-page.dto';
 import { UpdatePageDto } from './dto/update-page.dto';
+import { IPageRepository } from 'src/interface/IPageRepository.interface';
+import { Page } from './entities/page.entity';
 
 @Injectable()
 export class PagesService {
-  create(createPageDto: CreatePageDto) {
-    return 'This action adds a new page';
+  constructor(
+    @Inject('IPageRepository')
+    private readonly pagesRepository: IPageRepository,
+  ) {}
+
+  async create(data: CreatePageDto, tenantId: string): Promise<Page> {
+    return await this.pagesRepository.create(data, tenantId);
   }
 
-  findAll() {
-    return `This action returns all pages`;
+  async findAllByTenant(tenantId: string): Promise<Page[]> {
+    return await this.pagesRepository.findAllByTenant(tenantId);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} page`;
+  async findById(id: string, tenantId: string): Promise<Page> {
+    return await this.pagesRepository.findById(id, tenantId);
   }
 
-  update(id: number, updatePageDto: UpdatePageDto) {
-    return `This action updates a #${id} page`;
+  async findBySlug(slug: string, tenantId: string): Promise<Page | null> {
+    return await this.pagesRepository.findBySlug(slug, tenantId);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} page`;
+  async update(
+    id: string,
+    updatePageDto: UpdatePageDto,
+    tenantId: string,
+  ): Promise<Page> {
+    return await this.pagesRepository.update(id, updatePageDto, tenantId);
+  }
+
+  async remove(id: string, tenantId: string): Promise<void> {
+    return await this.pagesRepository.delete(id, tenantId);
   }
 }

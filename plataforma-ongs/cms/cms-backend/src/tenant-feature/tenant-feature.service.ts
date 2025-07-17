@@ -1,26 +1,41 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateTenantFeatureDto } from './dto/create-tenant-feature.dto';
 import { UpdateTenantFeatureDto } from './dto/update-tenant-feature.dto';
+import { ITenantFeatureRepository } from 'src/interface/ITenantFeatureRepository.interface';
 
 @Injectable()
 export class TenantFeatureService {
-  create(createTenantFeatureDto: CreateTenantFeatureDto) {
-    return 'This action adds a new tenantFeature';
+  constructor(
+    @Inject('ITenantFeatureRepository')
+    private readonly tenantFeatureRepository: ITenantFeatureRepository,
+  ) {}
+
+  async create(createTenantFeatureDto: CreateTenantFeatureDto) {
+    const tenantFeature = await this.tenantFeatureRepository.create(
+      createTenantFeatureDto,
+    );
+
+    if (!tenantFeature) throw new Error('Failed to create tenant feature');
+
+    return tenantFeature;
   }
 
-  findAll() {
-    return `This action returns all tenantFeature`;
+  async findAllByTenant(tenantId: string) {
+    return await this.tenantFeatureRepository.findAllByTenant(tenantId);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} tenantFeature`;
+  async findByFeature(tenantId: string, feature: string) {
+    return await this.tenantFeatureRepository.findByFeature(tenantId, feature);
   }
 
-  update(id: number, updateTenantFeatureDto: UpdateTenantFeatureDto) {
-    return `This action updates a #${id} tenantFeature`;
+  async update(id: string, updateTenantFeatureDto: UpdateTenantFeatureDto) {
+    return await this.tenantFeatureRepository.update(
+      id,
+      updateTenantFeatureDto,
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} tenantFeature`;
+  async delete(id: string) {
+    return await this.tenantFeatureRepository.delete(id);
   }
 }

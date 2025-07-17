@@ -3,6 +3,7 @@ import { Animal } from 'generated/prisma';
 import { IAnimalRepository } from 'src/interface/IAnimalRepository.interface';
 import { CreateAnimalDto } from './dto/create-animal.dto';
 import { PrismaService } from 'src/database/prisma.service';
+import { UpdateAnimalDto } from './dto/update-animal.dto';
 
 @Injectable()
 export class AnimalsRepository implements IAnimalRepository {
@@ -39,7 +40,7 @@ export class AnimalsRepository implements IAnimalRepository {
 
   async updateAnimal(
     id: string,
-    animal: CreateAnimalDto,
+    animal: UpdateAnimalDto,
     tenantId: string,
   ): Promise<Animal> {
     return await this.prisma.animal.update({

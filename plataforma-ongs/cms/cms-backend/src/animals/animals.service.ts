@@ -1,26 +1,36 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateAnimalDto } from './dto/create-animal.dto';
 import { UpdateAnimalDto } from './dto/update-animal.dto';
+import { IAnimalRepository } from 'src/interface/IAnimalRepository.interface';
 
 @Injectable()
 export class AnimalsService {
-  create(createAnimalDto: CreateAnimalDto) {
-    return 'This action adds a new animal';
+  constructor(
+    @Inject('IAnimalRepository')
+    private readonly animalRepository: IAnimalRepository,
+  ) {}
+
+  async create(createAnimalDto: CreateAnimalDto, tenantId: string) {
+    return await this.animalRepository.createAnimal(createAnimalDto, tenantId);
   }
 
-  findAll() {
-    return `This action returns all animals`;
+  async findAllByTenant(tenantId: string) {
+    return await this.animalRepository.findAllByTenant(tenantId);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} animal`;
+  async findById(id: string, tenantId: string) {
+    return await this.animalRepository.findById(id, tenantId);
   }
 
-  update(id: number, updateAnimalDto: UpdateAnimalDto) {
-    return `This action updates a #${id} animal`;
+  async update(id: string, updateAnimalDto: UpdateAnimalDto, tenantId: string) {
+    return await this.animalRepository.updateAnimal(
+      id,
+      updateAnimalDto,
+      tenantId,
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} animal`;
+  async delete(id: string, tenantId: string) {
+    return await this.animalRepository.deleteAnimal(id, tenantId);
   }
 }
