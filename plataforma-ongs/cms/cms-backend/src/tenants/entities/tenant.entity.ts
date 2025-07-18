@@ -8,12 +8,12 @@ export class Tenant {
   id: string;
   name: string;
   subdomain: string;
-  config?: any;
-  createdAt: Date;
+  config?: any; // JSON
   animals?: Animal[];
   events?: Event[];
   media?: Media[];
   pages?: Page[];
   userTenants?: UserTenant[];
   features?: TenantFeature[];
+  createdAt: Date;
 }

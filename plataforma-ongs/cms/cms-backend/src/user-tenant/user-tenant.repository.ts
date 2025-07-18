@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { UserTenant } from 'generated/prisma';
-import { IUserTenantRepository } from 'src/interface/IUserTenantRepository.interface';
+import {
+  IUserTenantRepository,
+  UserTenantWithUserAndTenant,
+} from 'src/interface/IUserTenantRepository.interface';
 import { CreateUserTenantDto } from './dto/create-user-tenant.dto';
 import { UpdateUserTenantDto } from './dto/update-user-tenant.dto';
 import { PrismaService } from 'src/database/prisma.service';
@@ -12,7 +14,7 @@ export class UserTenantRepository implements IUserTenantRepository {
   async create(
     data: CreateUserTenantDto,
     tenantId: string,
-  ): Promise<UserTenant> {
+  ): Promise<UserTenantWithUserAndTenant> {
     return await this.prisma.userTenant.create({
       data: {
         userId: data.userId,
@@ -25,7 +27,7 @@ export class UserTenantRepository implements IUserTenantRepository {
   async findByUserAndTenant(
     userId: string,
     tenantId: string,
-  ): Promise<UserTenant | null> {
+  ): Promise<UserTenantWithUserAndTenant | null> {
     return await this.prisma.userTenant.findFirst({
       where: {
         userId: userId,
@@ -34,10 +36,26 @@ export class UserTenantRepository implements IUserTenantRepository {
     });
   }
 
+  async findByEmailAndTenant(
+    email: string,
+    tenantId: string,
+  ): Promise<UserTenantWithUserAndTenant | null> {
+    return await this.prisma.userTenant.findFirst({
+      where: {
+        tenantId,
+        user: { email },
+      },
+      include: {
+        user: true,
+        tenant: true,
+      },
+    });
+  }
+
   async updateRole(
     userTenantId: string,
     data: UpdateUserTenantDto,
-  ): Promise<UserTenant> {
+  ): Promise<UserTenantWithUserAndTenant> {
     return await this.prisma.userTenant.update({
       where: {
         id: userTenantId,
