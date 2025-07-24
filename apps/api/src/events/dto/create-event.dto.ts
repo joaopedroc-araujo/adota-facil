@@ -1,13 +1,19 @@
-import { IsString, IsDateString, IsOptional } from 'class-validator';
+import {
+  IsString,
+  IsDateString,
+  IsOptional,
+  IsNotEmpty,
+} from 'class-validator';
 
 export class CreateEventDto {
   @IsString()
+  @IsNotEmpty()
   title: string;
 
   @IsDateString()
   date: string;
 
-  @IsOptional()
   @IsString()
+  @IsOptional()
   description?: string;
 }
