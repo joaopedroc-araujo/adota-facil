@@ -136,5 +136,8 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# Turborepo cache
+.turbo
 
-adote-facil
+# Husky
+.husky/
