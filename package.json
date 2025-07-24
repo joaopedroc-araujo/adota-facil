@@ -1,0 +1,13 @@
+{
+  "name": "adota-facil",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "version": "1.0.0",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "turbo": "^2.5.5"
+  }
+}
