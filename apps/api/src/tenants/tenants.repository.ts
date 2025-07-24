@@ -10,12 +10,7 @@ export class TenantsRepository implements ITenantRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(data: CreateTenantDto): Promise<Tenant> {
-    return await this.prisma.tenant.create({
-      data: {
-        name: data.name,
-        subdomain: data.subdomain,
-      },
-    });
+    return await this.prisma.tenant.create({ data });
   }
 
   async findAll(): Promise<Tenant[]> {
@@ -24,37 +19,26 @@ export class TenantsRepository implements ITenantRepository {
 
   async findById(id: string): Promise<Tenant | null> {
     return await this.prisma.tenant.findUnique({
-      where: {
-        id: id,
-      },
+      where: { id },
     });
   }
 
   async findBySubdomain(subdomain: string): Promise<Tenant | null> {
     return await this.prisma.tenant.findUnique({
-      where: {
-        subdomain: subdomain,
-      },
+      where: { subdomain },
     });
   }
 
   async update(id: string, data: UpdateTenantDto): Promise<Tenant> {
     return await this.prisma.tenant.update({
-      where: {
-        id: id,
-      },
-      data: {
-        name: data.name,
-        subdomain: data.subdomain,
-      },
+      where: { id },
+      data,
     });
   }
 
   async delete(id: string): Promise<void> {
     return await this.prisma.tenant.delete({
-      where: {
-        id: id,
-      },
+      where: { id },
     });
   }
 }

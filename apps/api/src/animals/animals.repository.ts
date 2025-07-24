@@ -1,63 +1,44 @@
 import { Injectable } from '@nestjs/common';
-import { Animal } from 'generated/prisma';
 import { IAnimalRepository } from 'src/interface/IAnimalRepository.interface';
 import { CreateAnimalDto } from './dto/create-animal.dto';
 import { PrismaService } from 'src/database/prisma.service';
 import { UpdateAnimalDto } from './dto/update-animal.dto';
+import { Animal } from 'generated/prisma';
 
 @Injectable()
 export class AnimalsRepository implements IAnimalRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async createAnimal(
-    animal: CreateAnimalDto,
-    tenantId: string,
-  ): Promise<Animal> {
-    return await this.prisma.animal.create({
-      data: {
-        ...animal,
-        tenantId: tenantId,
-      },
+  async create(data: CreateAnimalDto, tenantId: string): Promise<Animal> {
+    return await this.prisma.withTenant(tenantId).animal.create({
+      data,
     });
   }
 
   async findAllByTenant(tenantId: string): Promise<Animal[]> {
-    return await this.prisma.animal.findMany({
-      where: {
-        tenantId: tenantId,
-      },
-    });
+    return await this.prisma.withTenant(tenantId).animal.findMany();
   }
 
   async findById(id: string, tenantId: string): Promise<Animal | null> {
-    return await this.prisma.animal.findUnique({
-      where: {
-        id: id,
-        tenantId: tenantId,
-      },
+    return await this.prisma.withTenant(tenantId).animal.findUnique({
+      where: { id },
     });
   }
 
-  async updateAnimal(
+  async update(
     id: string,
-    animal: UpdateAnimalDto,
+    data: UpdateAnimalDto,
     tenantId: string,
   ): Promise<Animal> {
-    return await this.prisma.animal.update({
-      where: {
-        id: id,
-        tenantId: tenantId,
-      },
-      data: animal,
+    return await this.prisma.withTenant(tenantId).animal.update({
+      where: { id },
+      data,
     });
   }
 
-  async deleteAnimal(id: string, tenantId: string): Promise<void> {
-    return await this.prisma.animal.delete({
-      where: {
-        id: id,
-        tenantId: tenantId,
-      },
+  async delete(id: string, tenantId: string): Promise<void> {
+    return await this.prisma.withTenant(tenantId).animal.delete({
+      where: { id },
     });
   }
 }

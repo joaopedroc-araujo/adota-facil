@@ -9,34 +9,30 @@ import { PrismaService } from 'src/database/prisma.service';
 export class UserRepository implements IUserRepository {
   constructor(private readonly prisma: PrismaService) {}
 
+  async create(data: CreateUserDto): Promise<User> {
+    return await this.prisma.user.create({ data });
+  }
+
+  async findAll(): Promise<User[]> {
+    return await this.prisma.user.findMany();
+  }
+
   async findById(id: string): Promise<User | null> {
-    return await this.prisma.user.findUnique({
-      where: { id },
-    });
+    return await this.prisma.user.findUnique({ where: { id } });
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    return await this.prisma.user.findUnique({
-      where: { email },
-    });
+    return await this.prisma.user.findUnique({ where: { email } });
   }
 
-  async createUser(user: CreateUserDto): Promise<User> {
-    return await this.prisma.user.create({
-      data: user,
-    });
-  }
-
-  async updateUser(user: UpdateUserDto): Promise<User> {
+  async update(id: string, data: UpdateUserDto): Promise<User> {
     return await this.prisma.user.update({
-      where: { id: user.id },
-      data: user,
+      where: { id },
+      data,
     });
   }
 
-  async deleteUser(id: string): Promise<void> {
-    return await this.prisma.user.delete({
-      where: { id },
-    });
+  async delete(id: string): Promise<void> {
+    return await this.prisma.user.delete({ where: { id } });
   }
 }

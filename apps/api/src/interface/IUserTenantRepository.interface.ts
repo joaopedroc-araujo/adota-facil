@@ -22,6 +22,7 @@ export interface IUserTenantRepository {
   updateRole(
     userTenantId: string,
     data: UpdateUserTenantDto,
+    tenantId: string,
   ): Promise<UserTenantWithUserAndTenant>;
-  delete(userTenantId: string): Promise<void>;
+  delete(userTenantId: string, tenantId: string): Promise<void>;
 }

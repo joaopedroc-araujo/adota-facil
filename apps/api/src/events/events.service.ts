@@ -1,26 +1,60 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateEventDto } from './dto/create-event.dto';
-import { UpdateEventDto } from './dto/update-event.dto';
+import { IEventRepository } from 'src/interface/IEventRepository.interface';
 
 @Injectable()
 export class EventsService {
-  create(createEventDto: CreateEventDto) {
-    return 'This action adds a new event';
+  constructor(
+    @Inject('IEventRepository')
+    private readonly eventRepository: IEventRepository,
+  ) {}
+
+  async create(createEventDto: CreateEventDto, tenantId: string) {
+    if (new Date(createEventDto.date) < new Date()) {
+      throw new BadRequestException(
+        'Não é possível criar um evento com uma data no passado.',
+      );
+    }
+    return await this.eventRepository.create(createEventDto, tenantId);
   }
 
-  findAll() {
-    return `This action returns all events`;
+  async findAllByTenant(tenantId: string) {
+    return await this.eventRepository.findAllByTenant(tenantId);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} event`;
+  async findById(id: string, tenantId: string) {
+    const event = await this.eventRepository.findById(id, tenantId);
+    if (!event) {
+      throw new NotFoundException(`Evento com o ID "${id}" não encontrado.`);
+    }
+    return event;
   }
 
-  update(id: number, updateEventDto: UpdateEventDto) {
-    return `This action updates a #${id} event`;
+  async update(id: string, updateEventDto: CreateEventDto, tenantId: string) {
+    const eventExists = await this.eventRepository.findById(id, tenantId);
+    if (!eventExists) {
+      throw new NotFoundException(`Evento com o ID "${id}" não encontrado.`);
+    }
+
+    if (new Date(updateEventDto.date) < new Date()) {
+      throw new BadRequestException(
+        'Não é possível atualizar um evento para uma data no passado.',
+      );
+    }
+
+    return await this.eventRepository.update(id, updateEventDto, tenantId);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} event`;
+  async delete(id: string, tenantId: string) {
+    const eventExists = await this.eventRepository.findById(id, tenantId);
+    if (!eventExists) {
+      throw new NotFoundException(`Evento com o ID "${id}" não encontrado.`);
+    }
+    return await this.eventRepository.delete(id, tenantId);
   }
 }

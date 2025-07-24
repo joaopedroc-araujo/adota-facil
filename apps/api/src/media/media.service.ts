@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { CreateMediaDto } from './dto/create-media.dto';
 import { UpdateMediaDto } from './dto/update-media.dto';
 import { IMediaRepository } from 'src/interface/IMediaRepository.interface';
-import { Media } from './entities/media.entity';
+import { Media } from 'generated/prisma';
 
 @Injectable()
 export class MediaService {

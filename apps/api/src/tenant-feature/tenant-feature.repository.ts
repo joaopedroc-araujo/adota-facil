@@ -9,59 +9,45 @@ import { PrismaService } from 'src/database/prisma.service';
 export class TenantFeatureRepository implements ITenantFeatureRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(data: CreateTenantFeatureDto): Promise<TenantFeature> {
-    return await this.prisma.tenantFeature.create({
+  async create(
+    data: CreateTenantFeatureDto,
+    tenantId: string,
+  ): Promise<TenantFeature> {
+    return await this.prisma.withTenant(tenantId).tenantFeature.create({
       data: {
-        tenantId: data.tenantId,
-        feature: data.feature,
-        enabled: data.enabled,
+        ...data,
+        tenantId: tenantId,
       },
     });
   }
 
   async findAllByTenant(tenantId: string): Promise<TenantFeature[]> {
-    return await this.prisma.tenantFeature.findMany({
-      where: {
-        tenantId: tenantId,
-      },
-    });
+    return await this.prisma.withTenant(tenantId).tenantFeature.findMany();
   }
 
   async findByFeature(
     feature: string,
     tenantId: string,
   ): Promise<TenantFeature | null> {
-    return await this.prisma.tenantFeature.findUnique({
-      where: {
-        feature_tenantId: {
-          feature: feature,
-          tenantId: tenantId,
-        },
-      },
+    return await this.prisma.withTenant(tenantId).tenantFeature.findFirst({
+      where: { feature },
     });
   }
 
   async update(
     id: string,
     data: UpdateTenantFeatureDto,
+    tenantId: string,
   ): Promise<TenantFeature> {
-    return await this.prisma.tenantFeature.update({
-      where: {
-        id: id,
-      },
-      data: {
-        tenantId: data.tenantId,
-        feature: data.feature,
-        enabled: data.enabled,
-      },
+    return await this.prisma.withTenant(tenantId).tenantFeature.update({
+      where: { id },
+      data,
     });
   }
 
-  async delete(id: string): Promise<void> {
-    return await this.prisma.tenantFeature.delete({
-      where: {
-        id: id,
-      },
+  async delete(id: string, tenantId: string): Promise<void> {
+    return await this.prisma.withTenant(tenantId).tenantFeature.delete({
+      where: { id },
     });
   }
 }

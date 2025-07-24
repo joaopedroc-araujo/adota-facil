@@ -15,7 +15,7 @@ export class UserTenantRepository implements IUserTenantRepository {
     data: CreateUserTenantDto,
     tenantId: string,
   ): Promise<UserTenantWithUserAndTenant> {
-    return await this.prisma.userTenant.create({
+    return await this.prisma.withTenant(tenantId).userTenant.create({
       data: {
         userId: data.userId,
         role: data.role,
@@ -28,11 +28,8 @@ export class UserTenantRepository implements IUserTenantRepository {
     userId: string,
     tenantId: string,
   ): Promise<UserTenantWithUserAndTenant | null> {
-    return await this.prisma.userTenant.findFirst({
-      where: {
-        userId: userId,
-        tenantId: tenantId,
-      },
+    return await this.prisma.withTenant(tenantId).userTenant.findFirst({
+      where: { userId },
     });
   }
 
@@ -40,14 +37,12 @@ export class UserTenantRepository implements IUserTenantRepository {
     email: string,
     tenantId: string,
   ): Promise<UserTenantWithUserAndTenant | null> {
-    return await this.prisma.userTenant.findFirst({
+    return await this.prisma.withTenant(tenantId).userTenant.findFirst({
       where: {
-        tenantId,
         user: { email },
       },
       include: {
         user: true,
-        tenant: true,
       },
     });
   }
@@ -55,22 +50,17 @@ export class UserTenantRepository implements IUserTenantRepository {
   async updateRole(
     userTenantId: string,
     data: UpdateUserTenantDto,
+    tenantId: string,
   ): Promise<UserTenantWithUserAndTenant> {
-    return await this.prisma.userTenant.update({
-      where: {
-        id: userTenantId,
-      },
-      data: {
-        role: data.role,
-      },
+    return await this.prisma.withTenant(tenantId).userTenant.update({
+      where: { id: userTenantId },
+      data: { role: data.role },
     });
   }
 
-  async delete(userTenantId: string): Promise<void> {
-    return await this.prisma.userTenant.delete({
-      where: {
-        id: userTenantId,
-      },
+  async delete(userTenantId: string, tenantId: string): Promise<void> {
+    return await this.prisma.withTenant(tenantId).userTenant.delete({
+      where: { id: userTenantId },
     });
   }
 }

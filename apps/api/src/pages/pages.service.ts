@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { CreatePageDto } from './dto/create-page.dto';
 import { UpdatePageDto } from './dto/update-page.dto';
 import { IPageRepository } from 'src/interface/IPageRepository.interface';
-import { Page } from './entities/page.entity';
+import { Page } from 'generated/prisma';
 
 @Injectable()
 export class PagesService {

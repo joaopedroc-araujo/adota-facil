@@ -10,9 +10,13 @@ export class TenantFeatureService {
     private readonly tenantFeatureRepository: ITenantFeatureRepository,
   ) {}
 
-  async create(createTenantFeatureDto: CreateTenantFeatureDto) {
+  async create(
+    createTenantFeatureDto: CreateTenantFeatureDto,
+    tenantId: string,
+  ) {
     const tenantFeature = await this.tenantFeatureRepository.create(
       createTenantFeatureDto,
+      tenantId,
     );
 
     if (!tenantFeature) throw new Error('Failed to create tenant feature');
@@ -28,14 +32,19 @@ export class TenantFeatureService {
     return await this.tenantFeatureRepository.findByFeature(tenantId, feature);
   }
 
-  async update(id: string, updateTenantFeatureDto: UpdateTenantFeatureDto) {
+  async update(
+    id: string,
+    updateTenantFeatureDto: UpdateTenantFeatureDto,
+    tenantId: string,
+  ) {
     return await this.tenantFeatureRepository.update(
       id,
       updateTenantFeatureDto,
+      tenantId,
     );
   }
 
-  async delete(id: string) {
-    return await this.tenantFeatureRepository.delete(id);
+  async delete(id: string, tenantId: string) {
+    return await this.tenantFeatureRepository.delete(id, tenantId);
   }
 }

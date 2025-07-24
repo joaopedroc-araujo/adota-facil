@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAnimalDto } from './dto/create-animal.dto';
 import { UpdateAnimalDto } from './dto/update-animal.dto';
 import { IAnimalRepository } from 'src/interface/IAnimalRepository.interface';
@@ -11,7 +11,7 @@ export class AnimalsService {
   ) {}
 
   async create(createAnimalDto: CreateAnimalDto, tenantId: string) {
-    return await this.animalRepository.createAnimal(createAnimalDto, tenantId);
+    return await this.animalRepository.create(createAnimalDto, tenantId);
   }
 
   async findAllByTenant(tenantId: string) {
@@ -23,14 +23,15 @@ export class AnimalsService {
   }
 
   async update(id: string, updateAnimalDto: UpdateAnimalDto, tenantId: string) {
-    return await this.animalRepository.updateAnimal(
-      id,
-      updateAnimalDto,
-      tenantId,
-    );
+    const animalExists = await this.animalRepository.findById(id, tenantId);
+    if (!animalExists) {
+      throw new NotFoundException(`Animal com o ID "${id}" não encontrado.`);
+    }
+
+    return await this.animalRepository.update(id, updateAnimalDto, tenantId);
   }
 
   async delete(id: string, tenantId: string) {
-    return await this.animalRepository.deleteAnimal(id, tenantId);
+    return await this.animalRepository.delete(id, tenantId);
   }
 }

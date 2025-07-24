@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 
 import { IUserRepository } from 'src/interface/IUserRepository.interface';
 import { CreateUserDto } from './dto/create-user.dto';
+import * as bcrypt from 'bcrypt';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
@@ -17,14 +18,32 @@ export class UsersService {
   }
 
   async createUser(createUserDto: CreateUserDto) {
-    return this.userRepository.createUser(createUserDto);
+    const existingUser = await this.userRepository.findByEmail(
+      createUserDto.email,
+    );
+    if (existingUser) {
+      throw new ConflictException(
+        `O email "${createUserDto.email}" já está cadastrado.`,
+      );
+    }
+
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(
+      createUserDto.password,
+      saltRounds,
+    );
+
+    return this.userRepository.create({
+      ...createUserDto,
+      password: hashedPassword,
+    });
   }
 
-  async updateUser(updateUserDto: UpdateUserDto) {
-    return this.userRepository.updateUser(updateUserDto);
+  async updateUser(id: string, user: UpdateUserDto) {
+    return this.userRepository.update(id, user);
   }
 
   async deleteUser(id: string) {
-    return this.userRepository.deleteUser(id);
+    return this.userRepository.delete(id);
   }
 }

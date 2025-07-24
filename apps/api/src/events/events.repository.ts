@@ -9,28 +9,18 @@ export class EventsRepository implements IEventRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(data: CreateEventDto, tenantId: string): Promise<Event> {
-    return await this.prisma.event.create({
-      data: {
-        ...data,
-        tenantId: tenantId,
-      },
+    return await this.prisma.withTenant(tenantId).event.create({
+      data,
     });
   }
 
   async findAllByTenant(tenantId: string): Promise<Event[]> {
-    return await this.prisma.event.findMany({
-      where: {
-        tenantId: tenantId,
-      },
-    });
+    return await this.prisma.withTenant(tenantId).event.findMany();
   }
 
   async findById(id: string, tenantId: string): Promise<Event | null> {
-    return await this.prisma.event.findUnique({
-      where: {
-        id: id,
-        tenantId: tenantId,
-      },
+    return await this.prisma.withTenant(tenantId).event.findUnique({
+      where: { id },
     });
   }
 
@@ -39,21 +29,15 @@ export class EventsRepository implements IEventRepository {
     data: UpdateEventDto,
     tenantId: string,
   ): Promise<Event> {
-    return await this.prisma.event.update({
-      where: {
-        id: id,
-        tenantId: tenantId,
-      },
-      data: data,
+    return await this.prisma.withTenant(tenantId).event.update({
+      where: { id },
+      data,
     });
   }
 
   async delete(id: string, tenantId: string): Promise<void> {
-    return await this.prisma.event.delete({
-      where: {
-        id: id,
-        tenantId: tenantId,
-      },
+    return await this.prisma.withTenant(tenantId).event.delete({
+      where: { id },
     });
   }
 }
