@@ -8,6 +8,7 @@ import {
   UseGuards,
   Body,
   Query,
+  BadRequestException,
 } from '@nestjs/common';
 import { FollowUpsService } from './follow-ups.service';
 import { UpdateFollowUpDto } from './dto/update-follow-up.dto';
@@ -25,7 +26,15 @@ export class FollowUpsController {
 
   @Get('pending')
   findPending(@Req() req, @Query('date') date?: string) {
-    const targetDate = date ? new Date(date) : new Date();
+    let targetDate = new Date();
+    if (date) {
+      targetDate = new Date(date);
+      if (isNaN(targetDate.getTime())) {
+        throw new BadRequestException(
+          'Parâmetro "date" deve ser uma data válida no formato ISO 8601.',
+        );
+      }
+    }
     return this.followUpsService.findPendingByDate(targetDate, req.tenantId);
   }
 

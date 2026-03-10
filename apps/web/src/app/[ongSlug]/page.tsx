@@ -59,7 +59,22 @@ export default async function OngPage({
   }
 
   const animals = await getAnimals(tenant.id);
-  const primaryColor = tenant.config?.primaryColor || '#4F46E5';
+
+  const isValidHexColor = (color: string) =>
+    /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(color);
+  const primaryColor =
+    tenant.config?.primaryColor && isValidHexColor(tenant.config.primaryColor)
+      ? tenant.config.primaryColor
+      : '#4F46E5';
+
+  const isValidUrl = (url: string) => {
+    try {
+      const parsed = new URL(url);
+      return parsed.protocol === 'https:' || parsed.protocol === 'http:';
+    } catch {
+      return false;
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -138,7 +153,7 @@ export default async function OngPage({
           <div className="max-w-6xl mx-auto text-center">
             <p className="text-sm text-gray-400 mb-4">{tenant.name}</p>
             <div className="flex justify-center gap-6">
-              {tenant.config.socialLinks.instagram && (
+              {tenant.config.socialLinks.instagram && isValidUrl(tenant.config.socialLinks.instagram) && (
                 <a
                   href={tenant.config.socialLinks.instagram}
                   target="_blank"
@@ -148,7 +163,7 @@ export default async function OngPage({
                   Instagram
                 </a>
               )}
-              {tenant.config.socialLinks.facebook && (
+              {tenant.config.socialLinks.facebook && isValidUrl(tenant.config.socialLinks.facebook) && (
                 <a
                   href={tenant.config.socialLinks.facebook}
                   target="_blank"
@@ -158,7 +173,7 @@ export default async function OngPage({
                   Facebook
                 </a>
               )}
-              {tenant.config.socialLinks.whatsapp && (
+              {tenant.config.socialLinks.whatsapp && isValidUrl(tenant.config.socialLinks.whatsapp) && (
                 <a
                   href={tenant.config.socialLinks.whatsapp}
                   target="_blank"
