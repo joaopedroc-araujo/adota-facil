@@ -14,7 +14,9 @@ export async function apiFetch<T>(
 
   if (!res.ok) {
     const error = await res.json().catch(() => ({ message: res.statusText }));
-    throw new Error(error.message || 'Erro na requisição');
+    throw new Error(
+      error.message || `Erro ${res.status} ao acessar ${path}`,
+    );
   }
 
   return res.json();

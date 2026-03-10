@@ -1,4 +1,5 @@
 import { apiFetch } from '@/lib/api';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
 interface Tenant {
@@ -68,10 +69,12 @@ export default async function OngPage({
       >
         <div className="max-w-6xl mx-auto text-center">
           {tenant.config?.logo && (
-            <img
+            <Image
               src={tenant.config.logo}
               alt={`${tenant.name} logo`}
-              className="h-16 mx-auto mb-4"
+              width={200}
+              height={64}
+              className="h-16 w-auto mx-auto mb-4"
             />
           )}
           <h1 className="text-3xl font-bold">{tenant.name}</h1>
@@ -99,10 +102,12 @@ export default async function OngPage({
                   key={animal.id}
                   className="bg-white rounded-lg shadow overflow-hidden"
                 >
-                  {animal.photos[0] && (
-                    <img
+                  {animal.photos.length > 0 && animal.photos[0] && (
+                    <Image
                       src={animal.photos[0]}
                       alt={animal.name}
+                      width={400}
+                      height={192}
                       className="w-full h-48 object-cover"
                     />
                   )}
