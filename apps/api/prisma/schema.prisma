@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "node_modules/.prisma/client"
+  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -20,6 +20,28 @@ enum UserRole {
   VOLUNTEER
 }
 
+enum AnimalStatus {
+  AVAILABLE
+  ADOPTED
+  UNDER_TREATMENT
+  QUARANTINE
+}
+
+enum AdoptionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+  CANCELLED
+}
+
+enum FollowUpStatus {
+  PENDING
+  COMPLETED
+  OVERDUE
+  CANCELLED
+}
+
 model Tenant {
   id        String   @id @default(uuid())
   name      String
@@ -33,17 +55,26 @@ model Tenant {
   pages       Page[]
   userTenants UserTenant[]
   features    TenantFeature[]
+  adoptions   Adoption[]
+  followUps   FollowUp[]
 }
 
 model Animal {
-  id          String   @id @default(uuid())
+  id          String       @id @default(uuid())
   tenantId    String
   name        String
   description String
+  species     String?
+  breed       String?
+  age         String?
+  gender      String?
+  healthNotes String?
+  status      AnimalStatus @default(AVAILABLE)
   photos      String[]
-  createdAt   DateTime @default(now())
+  createdAt   DateTime     @default(now())
 
-  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenant    Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  adoptions Adoption[]
 
   @@index([tenantId])
 }
@@ -82,6 +113,7 @@ model User {
   createdAt DateTime   @default(now())
 
   usersTenants UserTenant[]
+  adoptions    Adoption[]
 }
 
 model UserTenant {
@@ -105,4 +137,45 @@ model TenantFeature {
   tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 
   @@unique([tenantId, feature])
+}
+
+model Adoption {
+  id             String         @id @default(uuid())
+  tenantId       String
+  animalId       String
+  adopterId      String
+  status         AdoptionStatus @default(PENDING)
+  notes          String?
+  adoptionDate   DateTime?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  tenant    Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  animal    Animal     @relation(fields: [animalId], references: [id], onDelete: Cascade)
+  adopter   User       @relation(fields: [adopterId], references: [id], onDelete: Cascade)
+  followUps FollowUp[]
+
+  @@index([tenantId])
+  @@index([animalId])
+  @@index([adopterId])
+}
+
+model FollowUp {
+  id           String         @id @default(uuid())
+  tenantId     String
+  adoptionId   String
+  scheduledDate DateTime
+  completedDate DateTime?
+  status       FollowUpStatus @default(PENDING)
+  notes        String?
+  label        String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  tenant   Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  adoption Adoption @relation(fields: [adoptionId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([adoptionId])
+  @@index([scheduledDate])
 }
